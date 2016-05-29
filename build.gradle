@@ -1,0 +1,18 @@
+group 'org.torquemada'
+version '1.0-SNAPSHOT'
+
+apply plugin: 'java'
+apply plugin:'application'
+
+sourceCompatibility = 1.8
+compileJava.options.encoding = 'UTF-8'
+mainClassName = "org.torquemada.q.Board"
+
+repositories {
+    mavenCentral()
+}
+
+dependencies {
+    compile 'org.springframework:spring-context:4.2.5.RELEASE'
+    testCompile group: 'junit', name: 'junit', version: '4.11'
+}

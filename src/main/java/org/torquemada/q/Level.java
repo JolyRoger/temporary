@@ -1,5 +1,7 @@
 package org.torquemada.q;
 
+import org.torquemada.q.squares.Square;
+
 import javax.swing.*;
 import java.awt.*;
 
@@ -27,9 +29,15 @@ public class Level extends JPanel {
         squares = new Square[level.length];
 
         for (int i = 0; i < squares.length; i++) {
-//            squares[i] = new Square(SquareType.getType(level[i]));
             squares[i] = SquareFactory.create(SquareType.getType(level[i]));
             add(squares[i]);
         }
+    }
+
+    @Override
+    protected void paintComponent(Graphics g) {
+        super.paintComponent(g);
+        g.setColor(Color.LIGHT_GRAY);
+        g.fillRect(0, 0, getWidth(), getHeight());
     }
 }

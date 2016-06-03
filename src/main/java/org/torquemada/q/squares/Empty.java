@@ -8,5 +8,6 @@ import javax.swing.*;
 public class Empty extends Square {
     public Empty() {
         imageIcon = new ImageIcon("src/main/resources/empty.png");
+        image = imageIcon.getImage();
     }
 }

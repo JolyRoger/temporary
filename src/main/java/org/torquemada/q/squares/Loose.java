@@ -1,7 +1,5 @@
 package org.torquemada.q.squares;
 
-import org.torquemada.q.SquareType;
-
 import javax.swing.*;
 import java.awt.*;
 
@@ -10,15 +8,14 @@ import java.awt.*;
  */
 public class Loose extends ColorfulSquare {
 
-    private Color color = null;
-
     public Loose() {
         imageIcon = new ImageIcon("src/main/resources/empty.png");
+        image = imageIcon.getImage();
     }
 
     @Override
     public void paint(Graphics g) {
-        g.setColor(getColor(type));
+        g.setColor(color.getColor());
         g.fillRect(0, 0, getWidth(), getHeight());
         super.paint(g);
     }

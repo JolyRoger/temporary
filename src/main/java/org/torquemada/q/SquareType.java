@@ -1,8 +1,5 @@
 package org.torquemada.q;
 
-import java.awt.*;
-import java.util.Optional;
-
 /**
  * Created by torquemada on 5/28/16.
  */
@@ -30,27 +27,6 @@ public enum SquareType {
 
             default: return empty;
         }
-    }
-
-    public Optional<Color> getColor() {
-        switch (getColorString().orElse("")) {
-            case "red" : return Optional.of(Color.RED);
-            case "white" : return Optional.of(Color.WHITE);
-            case "yellow" : return Optional.of(Color.YELLOW);
-            case "orange" : return Optional.of(Color.ORANGE);
-            case "blue" : return Optional.of(Color.BLUE);
-        }
-        return Optional.empty();
-    }
-
-    public Optional<String> getColorString() {
-        String strType = toString();
-
-        if (strType.endsWith("ball")) {
-            return Optional.of(strType.substring(0, strType.indexOf("ball")));
-        } else if (strType.endsWith("loose")) {
-            return Optional.of(strType.substring(0, strType.indexOf("loose")));
-        } else return Optional.empty();
     }
 }
 

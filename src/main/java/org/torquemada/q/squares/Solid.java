@@ -8,5 +8,6 @@ import javax.swing.*;
 public class Solid extends Square {
     public Solid() {
         imageIcon = new ImageIcon("src/main/resources/solid.png");
+        image = imageIcon.getImage();
     }
 }

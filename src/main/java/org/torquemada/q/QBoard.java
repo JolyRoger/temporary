@@ -33,13 +33,11 @@ public class QBoard extends JFrame implements IBoard {
 //                " extendedKeyCode: " + e.getExtendedKeyCode());
                 int keyCode = e.getKeyCode();
                 switch (keyCode) {
-                    case KeyEvent.VK_DOWN :
-                    case KeyEvent.VK_RIGHT : engine.notifySelectNext(false);
-                        break;
-                    case KeyEvent.VK_UP :
-                    case KeyEvent.VK_LEFT : engine.notifySelectNext(true);
-                        break;
-                    case KeyEvent.VK_CONTROL : engine.notifySelectToMove();
+                    case KeyEvent.VK_DOWN : engine.notifyDown(); break;
+                    case KeyEvent.VK_RIGHT : engine.notifyRight(); break; // engine.notifySelectNext(false);
+                    case KeyEvent.VK_UP : engine.notifyUp(); break;
+                    case KeyEvent.VK_LEFT : engine.notifyLeft(); break; // engine.notifySelectNext(true);
+                    case KeyEvent.VK_CONTROL : engine.notifySelectToMove(); break;
                 }
             }
         });
@@ -61,5 +59,16 @@ public class QBoard extends JFrame implements IBoard {
     @Override
     public void selectToMove(int selectedId) {
         level.selectToMove(selectedId);
+    }
+
+    @Override
+    public boolean isReadyToMove(int selectedId) {
+        return level.isReadyToMove(selectedId);
+    }
+
+    @Override
+    public void moveBall(int from, int to) {
+        if (to == -1) level.moveBall(from);
+        else level.moveBall(from, to);
     }
 }

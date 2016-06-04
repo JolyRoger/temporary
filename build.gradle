@@ -6,7 +6,7 @@ apply plugin:'application'
 
 sourceCompatibility = 1.8
 compileJava.options.encoding = 'UTF-8'
-mainClassName = "org.torquemada.q.Board"
+mainClassName = "org.torquemada.q.QEngine"
 
 repositories {
     mavenCentral()

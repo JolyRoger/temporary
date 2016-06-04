@@ -65,5 +65,10 @@ public class Ball extends ColorfulSquare /*implements ISelectable */{
 
     public void selectToMove() {
         selectedToMove = !selectedToMove;
+
+    }
+
+    public boolean isReadyToMove() {
+        return selectedToMove;
     }
 }

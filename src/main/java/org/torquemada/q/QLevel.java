@@ -94,4 +94,38 @@ public class QLevel extends JPanel implements ILevel {
         ball.selectToMove();
         ball.repaint();
     }
+
+    @Override
+    public void removeBall(int from) {
+        remove(from);
+        add(create(from), from);
+        revalidate();
+    }
+
+    public void moveBall(int from, int to) {
+        Square sq = squares[from];
+        squares[from] = squares[to];
+        squares[to] = sq;
+
+        java.awt.Component fromComponent = getComponent(from);
+        java.awt.Component toComponent = getComponent(to);
+        add(fromComponent, to);
+        add(toComponent, from);
+
+        revalidate();
+    }
+
+    @Override
+    public boolean isReadyToMove(int selectedId) {
+        return ((Ball) squares[selectedId]).isReadyToMove();
+    }
+
+    private void printSquares() {
+        for (int i = 0; i < squares.length; i++) {
+            if (i % 6 == 0) System.out.println();
+            Square sq = squares[i];
+            System.out.print(sq.getClass().getSimpleName() + "\t");
+        }
+        System.out.println();
+    }
 }

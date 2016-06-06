@@ -5,8 +5,8 @@ package org.torquemada.q;
  */
 public enum SquareType {
     empty, solid,
-    redball, whiteball, yellowball, greenball, orangeball, blueball,
-    redloose, whiteloose, yellowloose, greenloose, orangeloose, blueloose;
+    redball, whiteball, yellowball, orangeball, blueball, greenball,
+    redloose, whiteloose, yellowloose, orangeloose, blueloose, greenloose;
 
     public static SquareType getType(int i) {
         switch (i) {
@@ -18,12 +18,14 @@ public enum SquareType {
             case 4 : return yellowball;
             case 5 : return orangeball;
             case 6 : return blueball;
+            case 7 : return greenball;
 
             case 22 : return redloose;
             case 33 : return whiteloose;
             case 44 : return yellowloose;
             case 55 : return orangeloose;
             case 66 : return blueloose;
+            case 77 : return greenloose;
 
             default: return empty;
         }

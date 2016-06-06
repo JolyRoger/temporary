@@ -47,19 +47,19 @@ public class QLevel extends JPanel implements ILevel {
             case empty : return empty().withId(i);
             case solid : return solid().withId(i);
 
-            case blueball : return ball().withColor(ValidColor.BLUE).withId(i);
             case redball: return ball().withColor(ValidColor.RED).withId(i);
             case whiteball: return ball().withColor(ValidColor.WHITE).withId(i);
             case yellowball: return ball().withColor(ValidColor.YELLOW).withId(i);
-            case greenball: return  ball().withColor(ValidColor.GREEN).withId(i);
             case orangeball: return ball().withColor(ValidColor.ORANGE).withId(i);
+            case blueball : return ball().withColor(ValidColor.BLUE).withId(i);
+            case greenball: return  ball().withColor(ValidColor.GREEN).withId(i);
 
-            case blueloose : return loose().withColor(ValidColor.BLUE).withId(i);
             case redloose : return loose().withColor(ValidColor.RED).withId(i);
             case whiteloose : return loose().withColor(ValidColor.WHITE).withId(i);
             case yellowloose : return loose().withColor(ValidColor.YELLOW).withId(i);
-            case greenloose : return loose().withColor(ValidColor.GREEN).withId(i);
             case orangeloose : return loose().withColor(ValidColor.ORANGE).withId(i);
+            case blueloose : return loose().withColor(ValidColor.BLUE).withId(i);
+            case greenloose : return loose().withColor(ValidColor.GREEN).withId(i);
         }
         return empty();
     }

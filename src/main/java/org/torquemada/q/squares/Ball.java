@@ -16,7 +16,6 @@ public class Ball extends ColorfulSquare {
 
     @Autowired
     private IEngine engine;
-    private Image ballImage;
     private boolean selected = false;
     private boolean selectedToMove = false;
 
@@ -54,7 +53,6 @@ public class Ball extends ColorfulSquare {
         if (selected) {
             BasicStroke bs1 = new BasicStroke(getWidth() / 10, BasicStroke.CAP_ROUND, BasicStroke.JOIN_ROUND);
             g2d.setStroke(bs1);
-//            g2d.drawRect(getWidth() / 15, getHeight() / 15, getWidth() - 20, getHeight() - 20);
             g2d.drawRect(0, 0, getWidth(), getHeight());
         }
     }

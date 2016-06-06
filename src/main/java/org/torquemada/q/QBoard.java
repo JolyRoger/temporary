@@ -3,6 +3,7 @@ package org.torquemada.q;
 import org.springframework.beans.factory.annotation.Autowired;
 
 import javax.swing.*;
+import java.awt.*;
 import java.awt.event.KeyAdapter;
 import java.awt.event.KeyEvent;
 
@@ -27,16 +28,12 @@ public class QBoard extends JFrame implements IBoard {
         addKeyListener(new KeyAdapter() {
             @Override
             public void keyPressed(KeyEvent e) {
-//                System.out.println("keyChar: " + e.getKeyChar() +
-//                        " keyCode: " + e.getKeyCode() +
-//                " keyLocation: " + e.getKeyLocation() +
-//                " extendedKeyCode: " + e.getExtendedKeyCode());
                 int keyCode = e.getKeyCode();
                 switch (keyCode) {
                     case KeyEvent.VK_DOWN : engine.notifyDown(); break;
-                    case KeyEvent.VK_RIGHT : engine.notifyRight(); break; // engine.notifySelectNext(false);
+                    case KeyEvent.VK_RIGHT : engine.notifyRight(); break;
                     case KeyEvent.VK_UP : engine.notifyUp(); break;
-                    case KeyEvent.VK_LEFT : engine.notifyLeft(); break; // engine.notifySelectNext(true);
+                    case KeyEvent.VK_LEFT : engine.notifyLeft(); break;
                     case KeyEvent.VK_CONTROL : engine.notifySelectToMove(); break;
                 }
             }
@@ -68,7 +65,14 @@ public class QBoard extends JFrame implements IBoard {
 
     @Override
     public void moveBall(int from, int to) {
-        if (to == -1) level.moveBall(from);
+        if (to == -1) level.removeBall(from);
         else level.moveBall(from, to);
+    }
+
+    @Override
+    public void paint(Graphics g) {
+        super.paint(g);
+//        Image win = new ImageIcon("src/main/resources/WIN.png").getImage();
+//        g.drawImage(win, 0, 0, getWidth(), getHeight(), null);
     }
 }

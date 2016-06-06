@@ -16,15 +16,17 @@ public class QEngine implements IEngine {
     private int selectedId;
     private boolean selectedToMove;
 
-    private int[] dimension = {6, 6};
-    private int [] levelData = {
-            1, 1, 33, 1, 1, 1,
-            1, 3, 0, 0, 0, 1,
-            1, 0, 0, 0, 0, 44,
-            1, 0, 0, 0, 0, 1,
-            1, 1, 0, 4, 0, 1,
-            0, 1, 1, 1, 1, 0
-    };
+    private int[] dimension;
+//            = {6, 6};
+    private int [] levelData;
+//            = {
+//            1, 1, 33, 1, 1, 1,
+//            1, 3, 0, 0, 0, 1,
+//            1, 0, 0, 0, 0, 44,
+//            1, 0, 0, 0, 0, 1,
+//            1, 1, 0, 4, 0, 1,
+//            0, 1, 1, 1, 1, 0
+//    };
 
     private ArrayList<Integer> balls = new ArrayList<>();
     private ArrayList<Integer> looses = new ArrayList<>();
@@ -34,6 +36,11 @@ public class QEngine implements IEngine {
 
     @Override
     public void run() {
+        Resources.loadResources();
+        Resources.LevelData data = Resources.getLevelData(1);
+        levelData = data.levelData;
+        dimension = data.dimension;
+
         for (int i = 0; i < levelData.length; i++) {
             if (isBall(levelData[i])) balls.add(i);
             if (isLoose(levelData[i])) looses.add(i);
@@ -45,6 +52,8 @@ public class QEngine implements IEngine {
             notifySelect(balls.get(0));
         });
     }
+
+
 
     @Override
     public void notifySelect(int id) {
@@ -136,22 +145,18 @@ public class QEngine implements IEngine {
     }
 
     private void rollLeft() {
-        int row = selectedId / dimension[1];
-        roll(selectedId-1, i -> i / dimension[1] == row, i -> --i);
+        roll(selectedId-1, i -> i / dimension[1] == selectedId / dimension[1], i -> --i);
     }
 
     private void rollRight() {
-        int row = selectedId / dimension[1];
-        roll(selectedId+1, i -> i / dimension[1] == row, i -> ++i);
+        roll(selectedId+1, i -> i / dimension[1] == selectedId / dimension[1], i -> ++i);
     }
 
     private void rollDown() {
-        int col = selectedId % dimension[1];
         roll(selectedId + dimension[1], i -> i < levelData.length, i -> i + dimension[1]);
     }
 
     private void rollUp() {
-        int col = selectedId / dimension[1];
         roll(selectedId - dimension[1], i -> i >= 0, i -> i - dimension[1]);
     }
 

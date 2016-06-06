@@ -23,7 +23,7 @@ public class QLevel extends JPanel implements ILevel {
 
     @Override
     public void init() {
-        GridLayout layout = new GridLayout(dimension[0], dimension[1]);
+        GridLayout layout = new GridLayout(dimension[1], dimension[0]);
         setLayout(layout);
         setSize(new Dimension(dimension[0] * 64, dimension[1] * 64));
 
@@ -118,6 +118,11 @@ public class QLevel extends JPanel implements ILevel {
     @Override
     public boolean isReadyToMove(int selectedId) {
         return ((Ball) squares[selectedId]).isReadyToMove();
+    }
+
+    @Override
+    public void clear() {
+        removeAll();
     }
 
     private void printSquares() {

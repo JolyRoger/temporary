@@ -15,18 +15,9 @@ public class QEngine implements IEngine {
 
     private int selectedId;
     private boolean selectedToMove;
-
+    private int currentLevel = 3;
     private int[] dimension;
-//            = {6, 6};
     private int [] levelData;
-//            = {
-//            1, 1, 33, 1, 1, 1,
-//            1, 3, 0, 0, 0, 1,
-//            1, 0, 0, 0, 0, 44,
-//            1, 0, 0, 0, 0, 1,
-//            1, 1, 0, 4, 0, 1,
-//            0, 1, 1, 1, 1, 0
-//    };
 
     private ArrayList<Integer> balls = new ArrayList<>();
     private ArrayList<Integer> looses = new ArrayList<>();
@@ -36,8 +27,12 @@ public class QEngine implements IEngine {
 
     @Override
     public void run() {
-        Resources.loadResources();
-        Resources.LevelData data = Resources.getLevelData(1);
+        board.init();
+        setNewLevel();
+    }
+
+    private void setNewLevel() {
+        Resources.LevelData data = Resources.getLevelData(currentLevel);
         levelData = data.levelData;
         dimension = data.dimension;
 
@@ -46,14 +41,10 @@ public class QEngine implements IEngine {
             if (isLoose(levelData[i])) looses.add(i);
         }
 
-        EventQueue.invokeLater(() -> {
-            board.assignLevel(dimension, levelData);
-            board.initUI();
-            notifySelect(balls.get(0));
-        });
+
+        board.assignLevel(dimension, levelData);
+        notifySelect(balls.get(0));
     }
-
-
 
     @Override
     public void notifySelect(int id) {
@@ -87,7 +78,7 @@ public class QEngine implements IEngine {
     @Override
     public void notifyLeft() {
         if (selectedToMove) {
-            rollLeft();
+            roll(selectedId-1, i -> i / dimension[0] == selectedId / dimension[0], i -> --i);
         } else {
             notifySelectNext(false);
         }
@@ -96,27 +87,25 @@ public class QEngine implements IEngine {
     @Override
     public void notifyUp() {
         if (selectedToMove) {
-            rollUp();
+            roll(selectedId - dimension[0], i -> i >= 0, i -> i - dimension[0]);
         } else {
             notifySelectNext(false);
         }
-
     }
 
     @Override
     public void notifyRight() {
         if (selectedToMove) {
-            rollRight();
+            roll(selectedId+1, i -> i / dimension[0] == selectedId / dimension[0], i -> ++i);
         } else {
             notifySelectNext(true);
         }
-
     }
 
     @Override
     public void notifyDown() {
         if (selectedToMove) {
-            rollDown();
+            roll(selectedId + dimension[0], i -> i < levelData.length, i -> i + dimension[0]);
         } else {
             notifySelectNext(true);
         }
@@ -144,22 +133,6 @@ public class QEngine implements IEngine {
         balls.add(to);
     }
 
-    private void rollLeft() {
-        roll(selectedId-1, i -> i / dimension[1] == selectedId / dimension[1], i -> --i);
-    }
-
-    private void rollRight() {
-        roll(selectedId+1, i -> i / dimension[1] == selectedId / dimension[1], i -> ++i);
-    }
-
-    private void rollDown() {
-        roll(selectedId + dimension[1], i -> i < levelData.length, i -> i + dimension[1]);
-    }
-
-    private void rollUp() {
-        roll(selectedId - dimension[1], i -> i >= 0, i -> i - dimension[1]);
-    }
-
     private void ballInLoose(int from, int to) {
         levelData[from] = 0;
         balls.remove((Integer) from);
@@ -167,8 +140,22 @@ public class QEngine implements IEngine {
         if (balls.size() > 0) {
             selectedToMove = false;
             notifySelect(balls.get(0));
+        } else {
+            win();
         }
     }
+
+    private void win() {
+        clearLevel();
+        selectedToMove = false;
+        currentLevel++;
+        setNewLevel();
+    }
+
+    private void clearLevel() {
+        board.clearLevel();
+    }
+
     private boolean isBall(int i) {
         return i>1 && i<10;
     }
@@ -177,8 +164,9 @@ public class QEngine implements IEngine {
     }
 
     public static void main(String[] args) {
+        Resources.loadResources();
         AnnotationConfigApplicationContext context = new AnnotationConfigApplicationContext(Config.class);
         IEngine qEngine = context.getBean(IEngine.class);
-        qEngine.run();
+        EventQueue.invokeLater(qEngine::run);
     }
 }

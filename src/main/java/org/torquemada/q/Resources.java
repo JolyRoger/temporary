@@ -32,7 +32,7 @@ public class Resources {
         try {
             stringLevels = FileUtils.readLines(new File("src/main/resources/standart.lev"), "UTF-8");
         } catch (IOException e) {
-            System.err.println("Can't load levels from standart.lev");
+            System.err.println("Can't load levels from standard.lev");
             System.exit(1);
         }
 
@@ -54,8 +54,6 @@ public class Resources {
                 if (readLevelData) {
                     readLevelData = false;
                     levelMap.put(currentNumber, new LevelData(currentNumber, currentLevelData, currentDimension.clone()));
-//                    if (j++ == 2)
-//                    break;
                 }
                 currentNumber = Integer.parseInt(stringLevel.replace('%', ' ').trim());
                 stringLevelDataNumber = 0;

@@ -3,7 +3,6 @@ package org.torquemada.q;
 import org.springframework.beans.factory.annotation.Autowired;
 
 import javax.swing.*;
-import java.awt.*;
 import java.awt.event.KeyAdapter;
 import java.awt.event.KeyEvent;
 
@@ -19,8 +18,7 @@ public class QBoard extends JFrame implements IBoard {
     private IEngine engine;
 
     @Override
-    public void initUI() {
-        getContentPane().add((QLevel) level);
+    public void init() {
         setTitle("Q-Game");
         setSize(800, 800);
         setLocationRelativeTo(null);
@@ -46,6 +44,7 @@ public class QBoard extends JFrame implements IBoard {
         level.setDimension(dimension);
         level.setLevelData(levelData);
         level.init();
+        getContentPane().add((QLevel) level);
     }
 
     @Override
@@ -70,9 +69,16 @@ public class QBoard extends JFrame implements IBoard {
     }
 
     @Override
-    public void paint(Graphics g) {
-        super.paint(g);
+    public void clearLevel() {
+        level.clear();
+        getContentPane().removeAll();
+        revalidate();
+    }
+
+//    @Override
+//    public void paint(Graphics g) {
+//        super.paint(g);
 //        Image win = new ImageIcon("src/main/resources/WIN.png").getImage();
 //        g.drawImage(win, 0, 0, getWidth(), getHeight(), null);
-    }
+//    }
 }

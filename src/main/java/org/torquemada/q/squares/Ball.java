@@ -42,7 +42,6 @@ public class Ball extends ColorfulSquare /*implements ISelectable */{
     public void paint(Graphics g) {
         g.drawImage(ballImage, 0, 0, getWidth(), getHeight(), null);
         super.paint(g);
-
         if (selectedToMove) {
             g.setColor(Color.RED);
         } else {

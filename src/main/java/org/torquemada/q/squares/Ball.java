@@ -12,11 +12,10 @@ import java.awt.event.MouseEvent;
 /**
  * Created by torquemada on 5/29/16.
  */
-public class Ball extends ColorfulSquare /*implements ISelectable */{
+public class Ball extends ColorfulSquare {
 
     @Autowired
     private IEngine engine;
-//    private ILevel level;
     private Image ballImage;
     private boolean selected = false;
     private boolean selectedToMove = false;
@@ -34,13 +33,15 @@ public class Ball extends ColorfulSquare /*implements ISelectable */{
 
     @Override
     public ColorfulSquare withColor(ValidColor color) {
-        ballImage = new ImageIcon("src/main/resources/" + color.toString().toLowerCase() +  "ball.png").getImage();
+        this.color = color;
         return this;
     }
 
     @Override
     public void paint(Graphics g) {
-        g.drawImage(ballImage, 0, 0, getWidth(), getHeight(), null);
+        int fillFactor = 10;
+        g.setColor(color.getColor());
+        g.fillOval(getWidth()/fillFactor, getHeight()/fillFactor, getWidth() - getWidth()/fillFactor*2, getHeight() - getHeight()/fillFactor*2);
         super.paint(g);
         if (selectedToMove) {
             g.setColor(Color.RED);
@@ -53,7 +54,8 @@ public class Ball extends ColorfulSquare /*implements ISelectable */{
         if (selected) {
             BasicStroke bs1 = new BasicStroke(getWidth() / 10, BasicStroke.CAP_ROUND, BasicStroke.JOIN_ROUND);
             g2d.setStroke(bs1);
-            g2d.drawRect(getWidth() / 15, getHeight() / 15, getWidth() - 20, getHeight() - 20);
+//            g2d.drawRect(getWidth() / 15, getHeight() / 15, getWidth() - 20, getHeight() - 20);
+            g2d.drawRect(0, 0, getWidth(), getHeight());
         }
     }
 
@@ -64,7 +66,6 @@ public class Ball extends ColorfulSquare /*implements ISelectable */{
 
     public void selectToMove() {
         selectedToMove = !selectedToMove;
-
     }
 
     public boolean isReadyToMove() {

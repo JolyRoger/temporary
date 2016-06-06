@@ -15,7 +15,7 @@ public class QEngine implements IEngine {
 
     private int selectedId;
     private boolean selectedToMove;
-    private int currentLevel = 3;
+    private int currentLevel = 1;
     private int[] dimension;
     private int [] levelData;
 

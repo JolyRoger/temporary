@@ -102,6 +102,7 @@ public class QLevel extends JPanel implements ILevel {
         revalidate();
     }
 
+    @Override
     public void moveBall(int from, int to) {
         Square sq = squares[from];
         squares[from] = squares[to];

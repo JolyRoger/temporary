@@ -5,6 +5,9 @@ package org.torquemada.q;
  */
 public interface IEngine {
     void run();
+
+    void setNewLevel();
+
     void notifySelect(int id);
     void notifySelectNext(boolean next);
     void notifySelectToMove();
@@ -13,4 +16,6 @@ public interface IEngine {
     void notifyUp();
     void notifyRight();
     void notifyDown();
+
+    void reloadLevel();
 }

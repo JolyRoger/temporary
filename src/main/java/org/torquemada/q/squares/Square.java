@@ -14,7 +14,9 @@ public abstract class Square extends Component {
     protected Image image = null;
     protected int id;
     public Square() {
-        setPreferredSize(new Dimension(width, height));
+        Dimension dimension = new Dimension(width, height);
+        setPreferredSize(dimension);
+        setSize(dimension);
     }
 
     @Override

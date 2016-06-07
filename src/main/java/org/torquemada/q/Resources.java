@@ -12,7 +12,7 @@ import java.util.List;
  */
 public class Resources {
 
-    static HashMap<Integer, LevelData> levelMap = new HashMap<>();
+    private static HashMap<Integer, LevelData> levelMap = new HashMap<>();
 
     public static class LevelData {
         int[] levelData;
@@ -79,7 +79,12 @@ public class Resources {
         }
     }
 
+    public static int getLevelMapSize() {
+        return levelMap.size();
+    }
+
     public static LevelData getLevelData(int number) {
-        return levelMap.get(number);
+        LevelData levelData = levelMap.get(number);
+        return new LevelData(levelData.number, levelData.levelData.clone(), levelData.dimension.clone());
     }
 }

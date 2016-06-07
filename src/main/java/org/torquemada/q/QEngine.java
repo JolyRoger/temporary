@@ -15,7 +15,7 @@ public class QEngine implements IEngine {
 
     private int selectedId;
     private boolean selectedToMove;
-    private int currentLevel = 51;
+    private int currentLevel = 1;
     private int[] dimension;
     private int [] levelData;
 
@@ -27,11 +27,20 @@ public class QEngine implements IEngine {
 
     @Override
     public void run() {
+        setNewLevel();
         board.init();
+    }
+
+    @Override
+    public void reloadLevel() {
+        balls.clear();
+        looses.clear();
+        clearLevel();
         setNewLevel();
     }
 
-    private void setNewLevel() {
+    @Override
+    public void setNewLevel() {
         Resources.LevelData data = Resources.getLevelData(currentLevel);
         levelData = data.levelData;
         dimension = data.dimension;
@@ -41,9 +50,58 @@ public class QEngine implements IEngine {
             if (isLoose(levelData[i])) looses.add(i);
         }
 
-
         board.assignLevel(dimension, levelData);
         notifySelect(balls.get(0));
+    }
+
+    private void win() {
+        currentLevel++;
+        reloadLevel();
+    }
+
+    private void clearLevel() {
+        board.clearLevel();
+    }
+
+    private void roll(int initial, IntPredicate cond, IntUnaryOperator step) {
+        int from = selectedId;
+        int to = selectedId;
+
+        for (int i = initial; cond.test(i); i = step.applyAsInt(i)) {
+            if (levelData[i] == 0) { to = i; continue; }
+            if (levelData[i] == levelData[selectedId] * 11) {
+                to = i;
+                ballInLoose(from, to);
+                return;
+            }
+            break;
+        }
+        levelData[from] += levelData[to];
+        levelData[to] = levelData[from] - levelData[to];
+        levelData[from] = levelData[from] - levelData[to];
+        board.moveBall(from, to);
+        selectedId = to;
+        balls.remove((Integer) from);
+        balls.add(to);
+    }
+
+    private void ballInLoose(int from, int to) {
+        levelData[from] = 0;
+        balls.remove((Integer) from);
+        board.moveBall(from, -1);
+        if (balls.size() > 0) {
+            selectedToMove = false;
+            notifySelect(balls.get(0));
+        } else {
+            win();
+        }
+    }
+
+    private boolean isBall(int i) {
+        return i>1 && i<10;
+    }
+    private boolean isLoose(int i) {
+        return i>10 && i%11 == 0;
     }
 
     @Override
@@ -109,58 +167,6 @@ public class QEngine implements IEngine {
         } else {
             notifySelectNext(true);
         }
-    }
-
-    private void roll(int initial, IntPredicate cond, IntUnaryOperator step) {
-        int from = selectedId;
-        int to = selectedId;
-
-        for (int i = initial; cond.test(i); i = step.applyAsInt(i)) {
-            if (levelData[i] == 0) { to = i; continue; }
-            if (levelData[i] == levelData[selectedId] * 11) {
-                to = i;
-                ballInLoose(from, to);
-                return;
-            }
-            break;
-        }
-        levelData[from] += levelData[to];
-        levelData[to] = levelData[from] - levelData[to];
-        levelData[from] = levelData[from] - levelData[to];
-        board.moveBall(from, to);
-        selectedId = to;
-        balls.remove((Integer) from);
-        balls.add(to);
-    }
-
-    private void ballInLoose(int from, int to) {
-        levelData[from] = 0;
-        balls.remove((Integer) from);
-        board.moveBall(from, -1);
-        if (balls.size() > 0) {
-            selectedToMove = false;
-            notifySelect(balls.get(0));
-        } else {
-            win();
-        }
-    }
-
-    private void win() {
-        clearLevel();
-        selectedToMove = false;
-        currentLevel++;
-        setNewLevel();
-    }
-
-    private void clearLevel() {
-        board.clearLevel();
-    }
-
-    private boolean isBall(int i) {
-        return i>1 && i<10;
-    }
-    private boolean isLoose(int i) {
-        return i>10 && i%11 == 0;
     }
 
     public static void main(String[] args) {

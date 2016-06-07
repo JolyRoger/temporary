@@ -20,8 +20,11 @@ public class QBoard extends JFrame implements IBoard {
     @Override
     public void init() {
         setTitle("Q-Game");
-        setSize(800, 800);
         setLocationRelativeTo(null);
+        setLayout(new BoxLayout(getContentPane(), BoxLayout.Y_AXIS));
+        getContentPane().add(new SettingsPanel(engine));
+        getContentPane().add((QLevel) level);
+        pack();
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         addKeyListener(new KeyAdapter() {
             @Override
@@ -44,7 +47,7 @@ public class QBoard extends JFrame implements IBoard {
         level.setDimension(dimension);
         level.setLevelData(levelData);
         level.init();
-        getContentPane().add((QLevel) level);
+        pack();
     }
 
     @Override
@@ -71,14 +74,6 @@ public class QBoard extends JFrame implements IBoard {
     @Override
     public void clearLevel() {
         level.clear();
-        getContentPane().removeAll();
         revalidate();
     }
-
-//    @Override
-//    public void paint(Graphics g) {
-//        super.paint(g);
-//        Image win = new ImageIcon("src/main/resources/WIN.png").getImage();
-//        g.drawImage(win, 0, 0, getWidth(), getHeight(), null);
-//    }
 }

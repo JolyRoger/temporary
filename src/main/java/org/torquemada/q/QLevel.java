@@ -18,9 +18,6 @@ public class QLevel extends JPanel implements ILevel {
     private int[] levelData;
     private Square[] squares;
 
-    @Autowired
-    private IBoard board;
-
     @Override
     public void init() {
         GridLayout layout = new GridLayout(dimension[1], dimension[0]);

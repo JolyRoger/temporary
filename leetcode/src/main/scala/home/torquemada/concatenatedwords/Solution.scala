@@ -1,6 +1,6 @@
 package home.torquemada.concatenatedwords
 
-import com.typesafe.scalalogging.Logger
+import scala.collection.mutable
 import scala.io.Source
 import scala.language.postfixOps
 
@@ -73,12 +73,6 @@ object Solution {
     }
   }
 
-
-
-
-
-
-
   private def rest(word: String) = {
     var currentNodeOpt = TST.root
     var stack = List.empty[String]
@@ -91,7 +85,7 @@ object Solution {
         symCount = symCount + 1
         if (currentNode.isEnd) {
           val restWord = word.drop(symCount)
-          stack = if (restWord.isEmpty) stack else restWord :: stack
+          stack = if (restWord.isEmpty) stack else restWord  :: stack
         }
         currentNode.middle
       } else if (sym < currentNode.data) currentNode.left else currentNode.right
@@ -99,10 +93,9 @@ object Solution {
     stack
   }
 
-  private def checkWord(word: String, secondary: Boolean): Either[Boolean, List[String]] = {
+  private def checkWord(word: String, secondary: Boolean): Either[Boolean, Set[String]] = {
     if (secondary && TST.search(word)) Left(true) else {
-      val words = rest(word)
-//      println(s"REST: \t$word:\t$words")
+      val words = rest(word).toSet
       if (words.isEmpty) Left(false) else Right(words)
     }
   }
@@ -110,15 +103,15 @@ object Solution {
   private def checkWord(word: String): Boolean = {
     var found = false
     var secondary = false
-    var stack = List(word)
+    var stack = Set(word)
 
     while (stack.nonEmpty) {
       stack = checkWord(stack.head, secondary) match {
         case Left(res) => if (res) {
           found = true
-          List.empty
+          Set.empty
         } else stack.tail
-        case Right(words) => words ::: stack.tail
+        case Right(words) => words ++ stack.tail
       }
       secondary = true
     }
@@ -130,5 +123,4 @@ object Solution {
     words.foreach(TST.insert)
     words.filter(checkWord).toList
   }
-
 }

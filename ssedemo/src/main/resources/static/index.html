@@ -1,0 +1,17 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Hello SSE</title>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
+    <script src="app.js"></script>
+    <script src="https://code.jquery.com/jquery-3.1.1.min.js"></script>
+</head>
+<body>
+    <h1>Hello SSE!</h1>
+    <div id="res-field" style="margin: 20px; padding: 10px; border: solid;">0</div>
+
+    <button onclick="sseStream('stream-sse-mvc')">SSE MVC</button>
+    <button onclick="sseStream('stream-sse')">Stream SSE</button>
+    <button onclick="sseStream('stream-flux')">Stream Flux</button>
+</body>
+</html>

@@ -1,3 +1,5 @@
 rootProject.name = 'Sample'
 include 'leetcode'
+include 'websocketdemo'
+include 'ssedemo'
 

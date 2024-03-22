@@ -4,16 +4,14 @@ version '1.0-SNAPSHOT'
 apply plugin: 'java'
 apply plugin:'application'
 
-sourceCompatibility = 17
 compileJava.options.encoding = 'UTF-8'
-mainClassName = "org.torquemada.q.QEngine"
 
 repositories {
     mavenCentral()
 }
 
 dependencies {
-    implementation 'org.springframework:spring-context:4.3.30.RELEASE'
+    implementation 'org.springframework:spring-context:5.2.21.RELEASE'
     implementation 'commons-io:commons-io:2.11.0'
-    testImplementation group: 'junit', name: 'junit', version: '4.11'
+    testImplementation group: 'junit', name: 'junit', version: '4.13.1'
 }

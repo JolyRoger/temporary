@@ -1,8 +1,8 @@
-package home.torquemada.concatenatedwords
+package content
 
 import com.typesafe.scalalogging.Logger
 import org.scalatest.flatspec.AnyFlatSpec
-import scala.Tuple.canEqualEmptyTuple
+
 import scala.io.Source
 
 class SolutionTest extends AnyFlatSpec {

@@ -1,10 +1,8 @@
-package home.torquemada.concatenatedwords
+package content
 
-import scala.collection.mutable
-import scala.io.Source
 import scala.language.postfixOps
 
-object Solution {
+object Solution extends App {
 
   case class TSTNode(var data: Char, var isEnd: Boolean = false, var left: Option[TSTNode] = None,
                       var middle: Option[TSTNode] = None, var right: Option[TSTNode] = None)
@@ -123,4 +121,23 @@ object Solution {
     words.foreach(TST.insert)
     words.filter(checkWord).toList
   }
+
+  def letterCombinations(digits: String): List[String] = {
+    val data = Map(
+      2 -> List("a", "b", "c"),
+      3 -> List("d", "e", "f"),
+      4 -> List("g", "h", "i"),
+      5 -> List("j", "k", "l"),
+      6 -> List("m", "n", "o"),
+      7 -> List("p", "q", "r", "s"),
+      8 -> List("t", "u", "w"),
+      9 -> List("w", "x", "y", "z"),
+    )
+
+    digits.foldLeft(List.empty[String]) {
+      (acc, next) => data(next.asDigit).flatMap(sym => if (acc.isEmpty) List(sym) else acc.map(str => str + sym))
+    }
+  }
+
+  println(s"combinations=${letterCombinations("23")}")
 }

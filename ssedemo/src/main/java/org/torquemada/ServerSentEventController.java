@@ -24,6 +24,7 @@ public class ServerSentEventController {
     @GetMapping(path = "stream-flux", produces = MediaType.TEXT_EVENT_STREAM_VALUE)
     public Flux<String> streamFlux() {
         AtomicInteger i = new AtomicInteger();
+        System.out.println();
         return Flux.interval(Duration.ofSeconds(1))
                 .map(sequence -> "Flux - " + i.get());
     }

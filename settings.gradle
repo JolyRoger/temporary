@@ -1,5 +1,6 @@
 rootProject.name = 'Sample'
 include 'leetcode'
+include 'pgservice'
 include 'websocketdemo'
 include 'ssedemo'
 

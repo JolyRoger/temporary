@@ -3,4 +3,5 @@ include 'leetcode'
 include 'pgservice'
 include 'websocketdemo'
 include 'ssedemo'
+include 'javasample'
 

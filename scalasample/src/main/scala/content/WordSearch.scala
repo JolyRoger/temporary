@@ -53,7 +53,7 @@ object WordSearch extends App {
 
   def add(sym: Int, board: Array[Array[Char]], words: Array[String]) {
     var stack = List((sym, Set.empty[Int]))
-    val root = Node(sym)
+//    val root = Node(sym)
 
     while (stack.nonEmpty) {
       val element = stack.head
